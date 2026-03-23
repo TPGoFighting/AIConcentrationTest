@@ -1,0 +1,27 @@
+.app {
+    text-align: center;
+    color: white;
+    background: scroll;
+    padding: 0%;
+}
+
+.cambox {
+    position: relative;
+    display: inline-block;
+    margin-top: auto;
+}
+
+.webcam .canvas {
+    column-gap: normal;
+    color: aqua;
+    position: static;
+    margin: auto;
+    transform: translateX(-50%);
+    height: 50%;
+    width: 30%;
+    left: 50%;
+}
+
+.canvas {
+    z-index: 10;
+}

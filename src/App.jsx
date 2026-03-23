@@ -1,15 +1,18 @@
   import { useState, useRef,useEffect } from "react"
 import Webcam from "react-webcam"
 import { Layout, Menu } from "antd"
+import { Route, Routes, useNavigate } from "react-router-dom"
+
 const{Sider,Header,Content} = Layout  
 
 const { Hands } = window;
 const { Camera } = window;
 
 function App() {
+  const navigate = useNavigate()
   const videoConstraints = {
-    width: 1920, // 或者是 1920
-    height: 1080, // 或者是 1080
+    width: 1920,
+    height: 1080, 
     facingMode: "user"
   };
   const [boxPosition, setBoxposition] = useState({ x: 100, y: 100 })
@@ -236,7 +239,13 @@ function App() {
 
   return (
     <Layout style={
-      { minHeight: "100vh" }
+      {
+        height: "100vh",
+        width: "100vw",
+        margin: "0px",
+        padding: "0px",
+        border:"0px"
+       }
     }>
       <Sider>
         <div style={
@@ -246,7 +255,16 @@ function App() {
             background:'rgba(255,255,255,0.2)'
           }
         } />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={1} items={
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={1}
+          onClick={(e) => {
+            if (e.key=='1') {
+              navigate('/')
+            }
+            if (e.key=='2') {
+              navigate('/report')
+            }
+          }}
+          items={
           [{ key:1,label:"Test Center"},{key:2,label:"Data Report"}]
         } />
       </Sider>
@@ -268,22 +286,24 @@ function App() {
         height: "100px",
         width: "100px",
         top: boxPosition.y-50+"px",
-        right:boxPosition.x-50+"px"
+        left:boxPosition.x-50+"px"
       }}></div>
 
       <Webcam ref={webcamRef}
         videoConstraints={videoConstraints}
         style={
           {
+            objectFit: "contain",
             position: "absolute",
             transform: "scaleX(-1)",
             opacity: 0,
             top: 0,
-            right: 0,
-            // left: 0,
+            // right: 0,
+            left: 0,
             height: "100%",
-            width: "100%"
-            
+            width: "100%",
+            transformOrigin: "center",
+            // display: "block"            
            }
       }>
 
@@ -291,13 +311,16 @@ function App() {
       <canvas ref={canvasRef}
         style={
           {
+            objectFit:"contain",
             position: "absolute",
             transform: "scaleX(-1)",
             top: 0,
-            right: 0,
-            // left: 0,
+            // right: 0,
+            left: 0,
             height: "100%",
-            width: "100%"
+            width: "100%",
+            transformOrigin: "center",
+            // display:"block"
         }
       }></canvas>
         </Content>
